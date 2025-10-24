@@ -42,19 +42,19 @@ const Contact = () => {
     {
       icon: <Phone size={20} className="sm:w-6 sm:h-6" />,
       title: 'Phone',
-      value: '+91 98765 43210',
-      link: 'tel:+919876543210',
+      value: '+91 7013517725',
+      link: 'tel:+917013517725',
     },
     {
       icon: <Mail size={20} className="sm:w-6 sm:h-6" />,
       title: 'Email',
-      value: 'info@brainscanacademy.com',
-      link: 'mailto:info@brainscanacademy.com',
+      value: 'brainscanacademy@gmail.com',
+      link: 'mailto:brainscanacademy@gmail.com',
     },
     {
       icon: <MapPin size={20} className="sm:w-6 sm:h-6" />,
       title: 'Address',
-      value: 'Hyderabad, Telangana, India',
+      value: 'Gooty, Andhra Pradesh, India',
       link: '#',
     },
   ];

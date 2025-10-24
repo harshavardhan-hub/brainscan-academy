@@ -71,11 +71,11 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center space-x-2 text-blue-200 text-sm sm:text-base">
                 <Phone size={16} className="sm:w-[18px] sm:h-[18px] flex-shrink-0" />
-                <span>+91 98765 43210</span>
+                <span>+91 7013517725</span>
               </li>
               <li className="flex items-start space-x-2 text-blue-200 text-sm sm:text-base">
                 <Mail size={16} className="sm:w-[18px] sm:h-[18px] flex-shrink-0 mt-0.5" />
-                <span className="break-words">info@brainscanacademy.com</span>
+                <span className="break-words">brainscanacademy@gmail.com</span>
               </li>
             </ul>
           </div>

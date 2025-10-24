@@ -58,6 +58,22 @@ html {
     -ms-user-select: none;
     user-select: none;
   }
+
+  /* Fade in animation for tooltip */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out;
+  }
 }
 
 /* Custom scrollbar for webkit browsers */

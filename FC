@@ -1,0 +1,25 @@
+brainscan-academy/
+├── public/
+│   └── favicon.ico
+├── src/
+│   ├── components/
+│   │   ├── Navbar.jsx
+│   │   ├── Hero.jsx
+│   │   ├── About.jsx
+│   │   ├── Courses.jsx
+│   │   ├── WhyChooseUs.jsx
+│   │   ├── Testimonials.jsx
+│   │   ├── Contact.jsx
+│   │   ├── Footer.jsx
+│   │   └── ScrollToTop.jsx
+│   │   └── WhatsAppButton.jsx
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── .gitignore
+├── index.html
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+├── vite.config.js
+└── README.md

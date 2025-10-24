@@ -7,7 +7,7 @@ import WhyChooseUs from './components/WhyChooseUs';
 import Testimonials from './components/Testimonials';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop';
+import WhatsAppButton from './components/WhatsAppButton'; // Changed from ScrollToTop
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
       <Testimonials />
       <Contact />
       <Footer />
-      <ScrollToTop />
+      <WhatsAppButton /> {/* Changed from ScrollToTop */}
     </div>
   );
 }
