@@ -11,7 +11,7 @@ import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
-    <div className="relative">
+    <div className="relative w-full overflow-hidden">
       <Navbar />
       <Hero />
       <About />

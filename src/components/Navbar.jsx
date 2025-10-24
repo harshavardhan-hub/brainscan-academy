@@ -14,15 +14,15 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when clicking outside
+  // Prevent body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('menu-open');
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('menu-open');
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.classList.remove('menu-open');
     };
   }, [isOpen]);
 
@@ -44,24 +44,28 @@ const Navbar = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled ? 'bg-white shadow-lg' : 'bg-white/95 backdrop-blur-sm'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
+        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10">
           <div className="flex items-center justify-between h-16 sm:h-20">
             {/* Logo */}
-            <a href="#home" className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
+            <motion.a
+              href="#home"
+              className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0"
+              whileTap={{ scale: 0.95 }}
+            >
               <img
                 src="https://res.cloudinary.com/drit9nkha/image/upload/v1761289377/logo_yax1ym.jpg"
                 alt="BrainScan Academy"
                 className="h-10 w-10 sm:h-12 sm:w-12 rounded-full object-cover"
               />
-              <span className="text-base sm:text-xl font-bold gradient-text hidden xs:block">
+              <span className="text-sm sm:text-base md:text-xl font-bold gradient-text">
                 BrainScan Academy
               </span>
-            </a>
+            </motion.a>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
@@ -86,7 +90,7 @@ const Navbar = () => {
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden text-gray-700 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-gray-100"
+              className="lg:hidden text-gray-700 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-gray-100 touch-manipulation"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -104,7 +108,7 @@ const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.2 }}
               className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
               onClick={() => setIsOpen(false)}
             />
@@ -114,26 +118,26 @@ const Navbar = () => {
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 w-full sm:w-80 bg-white shadow-2xl z-50 lg:hidden overflow-y-auto"
+              transition={{ type: 'tween', duration: 0.3, ease: 'easeInOut' }}
+              className="fixed top-0 right-0 bottom-0 w-[280px] sm:w-80 bg-white shadow-2xl z-50 lg:hidden overflow-y-auto"
             >
               <div className="p-6">
                 {/* Close Button */}
                 <div className="flex justify-between items-center mb-8">
-                  <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-2">
                     <img
                       src="https://res.cloudinary.com/drit9nkha/image/upload/v1761289377/logo_yax1ym.jpg"
                       alt="BrainScan Academy"
                       className="h-10 w-10 rounded-full"
                     />
-                    <span className="text-lg font-bold gradient-text">
+                    <span className="text-base font-bold gradient-text">
                       BrainScan
                     </span>
                   </div>
                   <motion.button
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setIsOpen(false)}
-                    className="p-2 rounded-lg hover:bg-gray-100"
+                    className="p-2 rounded-lg hover:bg-gray-100 touch-manipulation"
                   >
                     <X size={24} />
                   </motion.button>
@@ -146,10 +150,10 @@ const Navbar = () => {
                       key={link.name}
                       href={link.href}
                       onClick={handleLinkClick}
-                      initial={{ opacity: 0, x: 50 }}
+                      initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="block py-3 px-4 text-lg text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all font-medium"
+                      transition={{ delay: index * 0.05, duration: 0.2 }}
+                      className="block py-3 px-4 text-base text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all font-medium touch-manipulation"
                     >
                       {link.name}
                     </motion.a>
@@ -162,8 +166,8 @@ const Navbar = () => {
                   onClick={handleLinkClick}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="block mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-4 rounded-full text-center font-semibold shadow-lg"
+                  transition={{ delay: 0.3 }}
+                  className="block mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3.5 rounded-full text-center font-semibold shadow-lg touch-manipulation"
                 >
                   Enroll Now
                 </motion.a>
