@@ -61,13 +61,13 @@ const Contact = () => {
     {
       icon: <Mail size={20} className="sm:w-6 sm:h-6" />,
       title: 'Email',
-      value: 'info@brainscanacademy.com',
-      link: 'mailto:info@brainscanacademy.com',
+      value: 'brainscanacademy@gmail.com',
+      link: 'mailto:brainscanacademy@gmail.com',
     },
     {
       icon: <MapPin size={20} className="sm:w-6 sm:h-6" />,
       title: 'Address',
-      value: 'Hyderabad, Telangana, India',
+      value: 'Gooty, Andhra Pradesh, India',
       link: '#',
     },
   ];
