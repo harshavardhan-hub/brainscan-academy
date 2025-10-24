@@ -1,60 +1,73 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import emailjs from '@emailjs/browser';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 
 const Contact = () => {
   const ref = useRef(null);
   const formRef = useRef();
   const isInView = useInView(ref, { once: true, margin: '-100px' });
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-
-    // Replace these with your actual EmailJS credentials
-    emailjs
-      .sendForm(
-        'YOUR_SERVICE_ID', // Replace with your EmailJS Service ID
-        'YOUR_TEMPLATE_ID', // Replace with your EmailJS Template ID
-        formRef.current,
-        'YOUR_PUBLIC_KEY' // Replace with your EmailJS Public Key
-      )
-      .then(
-        () => {
-          setSuccess(true);
-          setLoading(false);
-          formRef.current.reset();
-          setTimeout(() => setSuccess(false), 5000);
-        },
-        (error) => {
-          console.log('FAILED...', error.text);
-          setLoading(false);
-          alert('Failed to send message. Please try again.');
-        }
-      );
+    
+    // Format message for WhatsApp WITHOUT asterisks (no bold)
+    const whatsappMessage = 
+      `New Inquiry from Website%0A%0A` +
+      `Name: ${encodeURIComponent(formData.name)}%0A` +
+      `Email: ${encodeURIComponent(formData.email)}%0A` +
+      `Phone: ${encodeURIComponent(formData.phone)}%0A%0A` +
+      `Message:%0A${encodeURIComponent(formData.message)}`;
+    
+    // WhatsApp number
+    const phoneNumber = '917013517725';
+    
+    // Create WhatsApp URL
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
+    
+    // Open WhatsApp in new tab
+    window.open(whatsappUrl, '_blank');
+    
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      message: ''
+    });
   };
 
   const contactInfo = [
     {
       icon: <Phone size={20} className="sm:w-6 sm:h-6" />,
       title: 'Phone',
-      value: '+91 7013517725',
+      value: '+91 70135 17725',
       link: 'tel:+917013517725',
     },
     {
       icon: <Mail size={20} className="sm:w-6 sm:h-6" />,
       title: 'Email',
-      value: 'brainscanacademy@gmail.com',
-      link: 'mailto:brainscanacademy@gmail.com',
+      value: 'info@brainscanacademy.com',
+      link: 'mailto:info@brainscanacademy.com',
     },
     {
       icon: <MapPin size={20} className="sm:w-6 sm:h-6" />,
       title: 'Address',
-      value: 'Gooty, Andhra Pradesh, India',
+      value: 'Hyderabad, Telangana, India',
       link: '#',
     },
   ];
@@ -91,11 +104,13 @@ const Contact = () => {
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               <div>
                 <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-                  Your Name
+                  Your Name *
                 </label>
                 <input
                   type="text"
-                  name="user_name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-sm sm:text-base"
                   placeholder="John Doe"
@@ -104,11 +119,13 @@ const Contact = () => {
 
               <div>
                 <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-                  Your Email
+                  Your Email *
                 </label>
                 <input
                   type="email"
-                  name="user_email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   required
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-sm sm:text-base"
                   placeholder="john@example.com"
@@ -121,7 +138,9 @@ const Contact = () => {
                 </label>
                 <input
                   type="tel"
-                  name="user_phone"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none transition-all text-sm sm:text-base"
                   placeholder="+91 98765 43210"
                 />
@@ -129,36 +148,31 @@ const Contact = () => {
 
               <div>
                 <label className="block text-sm sm:text-base text-gray-700 font-medium mb-2">
-                  Message
+                  Message *
                 </label>
                 <textarea
                   name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   required
                   rows="4"
                   className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-600 focus:ring-2 focus:ring-blue-200 outline-none transition-all resize-none text-sm sm:text-base"
-                  placeholder="Tell us about your interest..."
+                  placeholder="Tell us about your interest in DMIT or Mid Brain Activation..."
                 ></textarea>
               </div>
 
               <motion.button
                 type="submit"
-                disabled={loading}
                 whileTap={{ scale: 0.95 }}
-                className="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 disabled:opacity-50 text-sm sm:text-base"
+                className="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base touch-manipulation"
               >
-                <span>{loading ? 'Sending...' : 'Send Message'}</span>
+                <span>Send via WhatsApp</span>
                 <Send size={18} className="sm:w-5 sm:h-5" />
               </motion.button>
 
-              {success && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-xl text-center text-sm sm:text-base"
-                >
-                  Message sent successfully! We'll get back to you soon.
-                </motion.div>
-              )}
+              <p className="text-xs sm:text-sm text-gray-500 text-center">
+                ✓ Your message will open in WhatsApp. Click send to complete.
+              </p>
             </form>
           </motion.div>
 

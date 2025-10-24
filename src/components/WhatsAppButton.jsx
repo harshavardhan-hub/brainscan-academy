@@ -2,8 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const WhatsAppButton = () => {
-  const phoneNumber = '917013517725'; // Your number without + sign
-  const whatsappUrl = `https://wa.me/${phoneNumber}`;
+  const phoneNumber = '917013517725'; // Without + sign
+  
+  // Default pre-filled message for direct WhatsApp click
+  const defaultMessage = `Hi! I'm interested in learning more about BrainScan Academy programs.%0A%0AI would like to know about:%0A- DMIT Test%0A- Mid Brain Activation%0A%0APlease share more details.`;
+  
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${defaultMessage}`;
 
   return (
     <motion.a
@@ -47,10 +51,10 @@ const WhatsAppButton = () => {
           </svg>
         </div>
 
-        {/* Optional: "Chat with us" tooltip */}
+        {/* "Chat with us" tooltip */}
         <div className="absolute bottom-full right-0 mb-2 hidden group-hover:block animate-fade-in">
           <div className="bg-gray-900 text-white text-xs sm:text-sm px-3 py-2 rounded-lg whitespace-nowrap shadow-lg">
-            Chat with us
+            Chat with us on WhatsApp
             <div className="absolute top-full right-4 -mt-1">
               <div className="border-4 border-transparent border-t-gray-900"></div>
             </div>
